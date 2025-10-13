@@ -7,17 +7,17 @@ const Repertorio = () => {
     {
       title: "Ave María - Schubert",
       description: "Interpretación en concierto",
-      embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      embedUrl: "https://www.youtube.com/embed/54bjJI7Gkco",
     },
     {
       title: "O Mio Babbino Caro - Puccini",
       description: "Recital de ópera italiana",
-      embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      embedUrl: "https://www.youtube.com/embed/jSmC-JWLWh8",
     },
     {
       title: "Hallelujah - Cohen",
       description: "Versión en ceremonia",
-      embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      embedUrl: "https://www.youtube.com/embed/OA9mZg8aiXI",
     },
   ];
 
