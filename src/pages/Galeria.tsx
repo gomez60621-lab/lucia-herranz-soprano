@@ -6,7 +6,7 @@ const Galeria = () => {
   // Placeholder images - replace these URLs with your actual photos
   const photos = [
     {
-      url: "[[/src/assets/1760389385462.jpg?w=800&h=600&fit=crop]]",
+      url: "/src/assets/1760389385462.jpg",
       title: "Concierto lírico en auditorio Jesus, Ibiza",
       description: "Temporada 2024"
     },
