@@ -1,25 +1,28 @@
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Camera } from "lucide-react";
-import heroImage from "@/assets/1760389385462.jpg";
+import image1 from "@/assets/1760389385462.jpg";
+import image2 from "@/assets/1760389453082.jpg";
+import image3 from "@/assets/1760389644220.jpg";
+
 
 const Galeria = () => {
   // Placeholder images - replace these URLs with your actual photos
   const photos = [
     {
-      url: heroImage,
+      url: image1,
       title: "Concierto lírico en auditorio Jesus, Ibiza",
       description: "Temporada 2024"
     },
     {
-      url: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&h=600&fit=crop",
-      title: "Recital de Ópera",
-      description: "Sala de Cámara"
+      url: image2,
+      title: "Noches en 1742, Ibiza",
+      description: "Temporada 2023"
     },
     {
-      url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&h=600&fit=crop",
-      title: "Actuación en Boda",
-      description: "Ceremonia Especial"
+      url: image3,
+      title: "Fira de la sal San Jordi, Ibiza",
+      description: "Temporada 2022"
     },
     {
       url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&h=600&fit=crop",
