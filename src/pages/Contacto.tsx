@@ -11,9 +11,9 @@ import { useState } from "react";
 const Contacto = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
-    nombre: "Lucía Herranz",
+    nombre: "",
     email: "",
-    telefono: "610865215",
+    telefono: "",
     tipoEvento: "",
     mensaje: "",
   });
@@ -93,7 +93,7 @@ const Contacto = () => {
                   </div>
                   <CardTitle className="font-playfair text-lg">Teléfono</CardTitle>
                   <CardDescription className="font-cormorant">
-                    +34 600 000 000
+                    +34 610 865 215
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -105,7 +105,7 @@ const Contacto = () => {
                   </div>
                   <CardTitle className="font-playfair text-lg">Ubicación</CardTitle>
                   <CardDescription className="font-cormorant">
-                    Disponible en toda España
+                    Ibiza, Islas Baleares y España peninsular
                   </CardDescription>
                 </CardHeader>
               </Card>
