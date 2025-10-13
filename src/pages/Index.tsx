@@ -19,11 +19,14 @@ const Index = () => {
         </div>
         
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-in">
-          <h1 className="font-playfair text-5xl md:text-7xl font-bold text-primary-foreground mb-6">
-            Una Voz Que Trasciende
+          <p className="font-cormorant text-lg md:text-xl text-primary-foreground/80 mb-2">
+            Soprano Profesional
+          </p>
+          <h1 className="font-playfair text-5xl md:text-7xl font-bold text-primary-foreground mb-2">
+            Lucía Herranz
           </h1>
           <p className="font-cormorant text-xl md:text-2xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-            Soprano profesional especializada en eventos exclusivos, bodas de ensueño y conciertos memorables
+            Una voz que trasciende en eventos exclusivos, bodas de ensueño y conciertos memorables
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/repertorio">
@@ -118,7 +121,7 @@ const Index = () => {
       <footer className="py-8 px-6 border-t border-border bg-background">
         <div className="max-w-6xl mx-auto text-center">
           <p className="font-cormorant text-muted-foreground">
-            © 2025 Soprano Profesional. Todos los derechos reservados.
+            © 2025 Lucía Herranz - Soprano Profesional. Todos los derechos reservados.
           </p>
         </div>
       </footer>

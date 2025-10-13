@@ -13,7 +13,7 @@ const Navigation = () => {
           <Link to="/" className="flex items-center gap-2 group">
             <Music className="w-5 h-5 text-primary transition-transform group-hover:scale-110" />
             <span className="font-playfair font-semibold text-lg text-foreground">
-              Soprano
+              Lucía Herranz
             </span>
           </Link>
           
