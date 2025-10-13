@@ -11,9 +11,9 @@ import { useState } from "react";
 const Contacto = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
-    nombre: "",
+    nombre: "Lucía Herranz",
     email: "",
-    telefono: "",
+    telefono: "610865215",
     tipoEvento: "",
     mensaje: "",
   });
