@@ -1,12 +1,13 @@
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Camera } from "lucide-react";
+import heroImage from "@/assets/1760389385462.jpg";
 
 const Galeria = () => {
   // Placeholder images - replace these URLs with your actual photos
   const photos = [
     {
-      url: "/src/assets/1760389385462.jpg",
+      url: heroImage,
       title: "Concierto lírico en auditorio Jesus, Ibiza",
       description: "Temporada 2024"
     },
