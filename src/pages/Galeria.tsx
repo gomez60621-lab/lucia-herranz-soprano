@@ -6,8 +6,8 @@ const Galeria = () => {
   // Placeholder images - replace these URLs with your actual photos
   const photos = [
     {
-      url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop",
-      title: "Concierto en Teatro Principal",
+      url: "https://github.com/gomez60621-lab/lucia-herranz-soprano/blob/main/src/assets/1760389385462.jpg?w=800&h=600&fit=crop",
+      title: "Concierto lírico en auditorio Jesus, Ibiza",
       description: "Temporada 2024"
     },
     {
