@@ -47,6 +47,20 @@ const Navigation = () => {
             </Link>
             
             <Link
+              to="/galeria"
+              className={`font-cormorant text-base transition-colors relative ${
+                isActive("/galeria")
+                  ? "text-primary font-medium"
+                  : "text-foreground hover:text-primary"
+              }`}
+            >
+              Galería
+              {isActive("/galeria") && (
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary" />
+              )}
+            </Link>
+            
+            <Link
               to="/contacto"
               className={`font-cormorant text-base transition-colors relative ${
                 isActive("/contacto")
