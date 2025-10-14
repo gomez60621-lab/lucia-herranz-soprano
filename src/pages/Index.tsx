@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import heroImage from "@/assets/hero-soprano.jpg";
-import { Music2, Calendar, Users } from "lucide-react";
+import { Music2, Calendar, Users, Instagram } from "lucide-react";
 
 const Index = () => {
   return (
@@ -119,7 +119,16 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-border bg-background">
-        <div className="max-w-6xl mx-auto text-center">
+        <div className="max-w-6xl mx-auto text-center space-y-4">
+          <a 
+            href="https://www.instagram.com/luciaherranz_soprano" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Instagram className="w-6 h-6" />
+            <span className="font-cormorant text-lg">@luciaherranz_soprano</span>
+          </a>
           <p className="font-cormorant text-muted-foreground">
             © 2025 Lucía Herranz - Soprano Profesional. Todos los derechos reservados.
           </p>
