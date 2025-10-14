@@ -17,11 +17,11 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 12%;
 
-    --primary: 357 48% 28%;
+    --primary: 270 50% 30%;
     --primary-foreground: 42 40% 95%;
 
     --secondary: 42 35% 92%;
-    --secondary-foreground: 357 48% 28%;
+    --secondary-foreground: 270 50% 30%;
 
     --muted: 42 20% 90%;
     --muted-foreground: 0 0% 45%;
@@ -34,21 +34,21 @@ All colors MUST be HSL.
 
     --border: 42 25% 88%;
     --input: 42 25% 88%;
-    --ring: 357 48% 28%;
+    --ring: 270 50% 30%;
 
     --radius: 0.5rem;
     
     /* Custom design tokens */
     --gold: 42 65% 65%;
-    --burgundy: 357 48% 28%;
-    --burgundy-light: 357 48% 38%;
+    --purple: 270 50% 30%;
+    --purple-light: 270 50% 40%;
     --cream: 42 40% 95%;
     --ivory: 42 35% 92%;
     
-    --gradient-elegant: linear-gradient(135deg, hsl(357 48% 28%) 0%, hsl(357 48% 38%) 100%);
+    --gradient-elegant: linear-gradient(135deg, hsl(270 50% 30%) 0%, hsl(270 50% 40%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(42 40% 95%) 0%, hsl(0 0% 100%) 100%);
     
-    --shadow-elegant: 0 10px 40px -10px hsl(357 48% 28% / 0.2);
+    --shadow-elegant: 0 10px 40px -10px hsl(270 50% 30% / 0.2);
     --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.1);
     
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -89,7 +89,7 @@ All colors MUST be HSL.
     --muted: 0 0% 16%;
     --muted-foreground: 0 0% 60%;
 
-    --accent: 357 48% 38%;
+    --accent: 270 50% 40%;
     --accent-foreground: 42 40% 95%;
 
     --destructive: 0 62.8% 30.6%;
@@ -100,10 +100,10 @@ All colors MUST be HSL.
     --ring: 42 65% 65%;
     
     --gold: 42 65% 65%;
-    --burgundy: 357 48% 38%;
-    --burgundy-light: 357 48% 48%;
+    --purple: 270 50% 40%;
+    --purple-light: 270 50% 50%;
     
-    --gradient-elegant: linear-gradient(135deg, hsl(357 48% 28%) 0%, hsl(357 48% 38%) 100%);
+    --gradient-elegant: linear-gradient(135deg, hsl(270 50% 30%) 0%, hsl(270 50% 40%) 100%);
     --shadow-elegant: 0 10px 40px -10px hsl(42 65% 65% / 0.2);
   }
 }
