@@ -32,7 +32,8 @@ const Index = () => {
             <Link to="/repertorio">
               <Button 
                 size="lg"
-                className="bg-primary-foreground text-primary hover:bg-primary-foreground hover:text-primary font-cormorant text-lg px-8 py-6 shadow-elegant"
+                variant="outline"
+                className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/20 bg-primary/10 backdrop-blur-sm font-cormorant text-lg px-8 py-6"
               >
                 Ver Repertorio
               </Button>
