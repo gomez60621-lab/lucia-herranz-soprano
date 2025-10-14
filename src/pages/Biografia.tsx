@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import { ExternalLink, Quote } from "lucide-react";
-import bioImage from "@/assets/1760389385462.jpg";
+import bioImage from "@/assets/1760389683892.jpg";
 
 const Biografia = () => {
   const articles = [
