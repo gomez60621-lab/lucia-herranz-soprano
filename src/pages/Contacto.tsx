@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 
@@ -216,9 +216,18 @@ const Contacto = () => {
 
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-border bg-background">
-        <div className="max-w-6xl mx-auto text-center">
+        <div className="max-w-6xl mx-auto text-center space-y-4">
+          <a 
+            href="https://www.instagram.com/luciaherranz_soprano" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Instagram className="w-6 h-6" />
+            <span className="font-cormorant text-lg">@luciaherranz_soprano</span>
+          </a>
           <p className="font-cormorant text-muted-foreground">
-            © 2025 Soprano Profesional. Todos los derechos reservados.
+            © 2025 Lucía Herranz - Soprano Profesional. Todos los derechos reservados.
           </p>
         </div>
       </footer>
