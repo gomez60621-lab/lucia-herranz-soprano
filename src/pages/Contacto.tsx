@@ -4,9 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Phone, MapPin, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { sendContactFormEmails } from "@/services/emailService";
 
 const Contacto = () => {
   const { toast } = useToast();
@@ -17,10 +18,11 @@ const Contacto = () => {
     tipoEvento: "",
     mensaje: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation
     if (!formData.nombre || !formData.email || !formData.mensaje) {
       toast({
@@ -31,20 +33,37 @@ const Contacto = () => {
       return;
     }
 
-    // Show success message
-    toast({
-      title: "Mensaje enviado",
-      description: "Gracias por tu interés. Te contactaré pronto.",
-    });
+    setIsSubmitting(true);
 
-    // Reset form
-    setFormData({
-      nombre: "",
-      email: "",
-      telefono: "",
-      tipoEvento: "",
-      mensaje: "",
-    });
+    try {
+      // Send both emails (user confirmation + admin notification)
+      await sendContactFormEmails(formData);
+
+      // Show success message
+      toast({
+        title: "Mensaje enviado",
+        description: "Gracias por tu interés. Te contactaré pronto. Revisa tu email para la confirmación.",
+      });
+
+      // Reset form
+      setFormData({
+        nombre: "",
+        email: "",
+        telefono: "",
+        tipoEvento: "",
+        mensaje: "",
+      });
+    } catch (error) {
+      // Show error message
+      toast({
+        title: "Error al enviar",
+        description: "Hubo un problema al enviar tu mensaje. Por favor, intenta nuevamente o contacta directamente por email.",
+        variant: "destructive",
+      });
+      console.error("Error sending contact form:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -200,11 +219,19 @@ const Contacto = () => {
                       />
                     </div>
 
-                    <Button 
+                    <Button
                       type="submit"
+                      disabled={isSubmitting}
                       className="w-full bg-gradient-elegant text-primary-foreground hover:opacity-90 font-cormorant text-lg py-6 shadow-elegant"
                     >
-                      Enviar Mensaje
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Enviando...
+                        </>
+                      ) : (
+                        "Enviar Mensaje"
+                      )}
                     </Button>
                   </form>
                 </CardContent>
