@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
-import heroImage from "@/assets/1760389683892.jpg";
+import heroImage from "@/assets/hero-soprano.jpg";
 import { Music2, Calendar, Users, Instagram } from "lucide-react";
 import { useEffect, useState } from "react";
 
