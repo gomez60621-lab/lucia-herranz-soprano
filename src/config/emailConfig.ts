@@ -9,16 +9,16 @@
 
 export const emailConfig = {
   // Your EmailJS Public Key (found in Account > API Keys)
-  publicKey: 'M4IHsOYXRwmNMN8cx',
+  publicKey: 'awoUIgHOpo8FZpWSk',
 
   // Your EmailJS Service ID (found in Email Services)
-  serviceId: 'service_27vqbrl',
+  serviceId: 'service_yt031oq',
 
   // Template ID for user confirmation email
-  userConfirmationTemplateId: 'template_n1pfgnj',
+  userConfirmationTemplateId: 'template_sywikm6',
 
   // Template ID for admin notification email
-  adminNotificationTemplateId: 'template_xbhpc2s',
+  adminNotificationTemplateId: 'template_s1dk6ng',
 
   // Admin email address to receive form submissions
   adminEmail: 'luciaherranzsoprano@gmail.com',
