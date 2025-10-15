@@ -3,7 +3,8 @@
     "allow": [
       "Read(/C:\\Users\\Adrian Gomez\\Documents\\Web\\lucia-herranz-soprano/**)",
       "Read(/C:\\Users\\Adrian Gomez\\Documents\\Web\\lucia-herranz-soprano/**)",
-      "Bash(npm install)"
+      "Bash(npm install)",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []
