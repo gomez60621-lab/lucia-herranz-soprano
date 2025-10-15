@@ -59,7 +59,7 @@ const Biografia = () => {
               </h2>
               <div className="font-cormorant text-lg text-muted-foreground space-y-4 leading-relaxed">
                 <p>
-                  Nacida en el Mediterráneo como telón de fondo y una nota alta en el corazón, Lucía Herranz no canta: embruja. Esta sobrano ibicenca ha elevado el arte del canto lírica a nuevas
+                  Nacida en el Mediterráneo con el telón de fondo y una nota alta en el corazón, Lucía Herranz no canta: embruja. Esta soprano ibicenca ha elevado el arte del canto lírica a nuevas
                   alturas, llevando su voz desde los escenarios más selectos de la isla hasta los rincones más inesperados de los eventos elegantes. 
                 </p>
                 <p>
