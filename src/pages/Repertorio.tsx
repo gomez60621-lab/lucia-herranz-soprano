@@ -5,18 +5,18 @@ import { Music4, Instagram } from "lucide-react";
 const Repertorio = () => {
   const videos = [
     {
-      title: "Ave María - Schubert",
+      title: "El día que me quieras",
       description: "Interpretación en concierto",
       embedUrl: "https://www.youtube.com/embed/54bjJI7Gkco",
     },
     {
-      title: "O Mio Babbino Caro - Puccini",
-      description: "Recital de ópera italiana",
+      title: "Aria Pensar en él",
+      description: "Marina de E. Arrieta",
       embedUrl: "https://www.youtube.com/embed/jSmC-JWLWh8",
     },
     {
-      title: "Hallelujah - Cohen",
-      description: "Versión en ceremonia",
+      title: "El teu somris",
+      description: "A. Villalonga",
       embedUrl: "https://www.youtube.com/embed/OA9mZg8aiXI",
     },
   ];
