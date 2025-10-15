@@ -100,7 +100,7 @@ const Contacto = () => {
                   </div>
                   <CardTitle className="font-playfair text-lg">Email</CardTitle>
                   <CardDescription className="font-cormorant">
-                    soprano@email.com
+                    luciaherranzsoprano@gmail.com
                   </CardDescription>
                 </CardHeader>
               </Card>
