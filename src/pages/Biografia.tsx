@@ -59,16 +59,16 @@ const Biografia = () => {
               </h2>
               <div className="font-cormorant text-lg text-muted-foreground space-y-4 leading-relaxed">
                 <p>
-                  Soprano profesional nacida en Ibiza, Lucía Herranz ha cautivado a audiencias en toda España con su voz excepcional y su profunda sensibilidad artística.
+                  Nacida en el Mediterráneo como telón de fondo y una nota alta en el corazón, Lucía Herranz no canta: embruja. Esta sobrano ibicenca ha elevado el arte del canto lírica a nuevas
+                  alturas, llevando su voz desde los escenarios más selectos de la isla hasta los rincones más inesperados de los eventos elegantes. 
                 </p>
                 <p>
-                  Formada en las más prestigiosas instituciones musicales, Lucía combina una sólida técnica vocal con una interpretación emotiva que conecta directamente con el corazón del público.
+                  Formada con el rigor clásico, pero con un alma libre - como buena isleña -, Lucía combina técnica con una sensibilidad que hace vibrar hasta el último canapé del cóctel. ¿Una gala en un viñedo? ¿Una boda junto a un acantilado? ¿Una cena 
+                  privada bajo las estrellas? Si hay glamour y buen gusto, allí estará Lucía, afinando el ambiente con estilo y una sonrisa que vale más que mil partituras. 
                 </p>
                 <p>
-                  Su versatilidad le permite desenvolverse con maestría tanto en el repertorio operístico clásico como en obras contemporáneas, convirtiéndola en una artista completa y de reconocida trayectoria.
-                </p>
-                <p>
-                  Ha participado en numerosos conciertos, festivales y eventos exclusivos, aportando elegancia y distinción a cada actuación. Su compromiso con la excelencia musical la ha establecido como una referencia en el panorama lírico español.
+                  Con un repertorio que va desde la ópera más exigente hasta versiones exquisitas de clásicos modernos, Lucía transforma cada evento en una experiencia sensorial donde la música deja
+                  de oírse... para sentirse.
                 </p>
               </div>
             </div>
