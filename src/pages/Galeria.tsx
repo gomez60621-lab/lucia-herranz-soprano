@@ -1,45 +1,38 @@
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
-import { Camera, Instagram } from "lucide-react";
+import { Camera, Instagram, ExternalLink } from "lucide-react";
 import image1 from "@/assets/1760389385462.jpg";
 import image2 from "@/assets/1760389453082.jpg";
 import image3 from "@/assets/1760389644220.jpg";
-
+import instagramData from "@/data/instagram-posts.json";
 
 const Galeria = () => {
-  // Placeholder images - replace these URLs with your actual photos
-  const photos = [
+  // Fallback photos if Instagram posts aren't loaded yet
+  const fallbackPhotos = [
     {
       url: image1,
       title: "Concierto lírico en auditorio Jesus, Ibiza",
-      description: "Temporada 2024"
+      description: "Temporada 2024",
+      permalink: null
     },
     {
       url: image2,
       title: "Noches en 1742, Ibiza",
-      description: "Temporada 2023"
+      description: "Temporada 2023",
+      permalink: null
     },
     {
       url: image3,
       title: "Fira de la sal San Jordi, Ibiza",
-      description: "Temporada 2022"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&h=600&fit=crop",
-      title: "Evento Corporativo",
-      description: "Gala Anual"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&h=600&fit=crop",
-      title: "Concierto Benéfico",
-      description: "Auditorio Nacional"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&h=600&fit=crop",
-      title: "Presentación Privada",
-      description: "Palacio de Congresos"
+      description: "Temporada 2022",
+      permalink: null
     },
   ];
+
+  // Use Instagram posts if available, otherwise use fallback
+  const photos = instagramData.posts && instagramData.posts.length > 0
+    ? instagramData.posts
+    : fallbackPhotos;
 
   return (
     <div className="min-h-screen bg-background">
@@ -63,27 +56,57 @@ const Galeria = () => {
           {/* Photo Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {photos.map((photo, index) => (
-              <Card 
-                key={index} 
+              <Card
+                key={index}
                 className="overflow-hidden shadow-soft hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 group"
               >
-                <div className="aspect-[4/3] relative overflow-hidden bg-muted">
-                  <img
-                    src={photo.url}
-                    alt={photo.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                    <div className="text-primary-foreground">
-                      <h3 className="font-playfair text-xl font-semibold mb-1">
-                        {photo.title}
-                      </h3>
-                      <p className="font-cormorant text-sm">
-                        {photo.description}
-                      </p>
+                {photo.permalink ? (
+                  <a
+                    href={photo.permalink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <div className="aspect-[4/3] relative overflow-hidden bg-muted">
+                      <img
+                        src={photo.url}
+                        alt={photo.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div className="text-primary-foreground">
+                          <div className="flex items-start justify-between gap-2 mb-1">
+                            <h3 className="font-playfair text-xl font-semibold">
+                              {photo.title}
+                            </h3>
+                            <ExternalLink className="w-5 h-5 flex-shrink-0" />
+                          </div>
+                          <p className="font-cormorant text-sm">
+                            {photo.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                ) : (
+                  <div className="aspect-[4/3] relative overflow-hidden bg-muted">
+                    <img
+                      src={photo.url}
+                      alt={photo.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                      <div className="text-primary-foreground">
+                        <h3 className="font-playfair text-xl font-semibold mb-1">
+                          {photo.title}
+                        </h3>
+                        <p className="font-cormorant text-sm">
+                          {photo.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </Card>
             ))}
           </div>
