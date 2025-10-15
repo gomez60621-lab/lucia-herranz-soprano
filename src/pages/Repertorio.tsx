@@ -19,6 +19,11 @@ const Repertorio = () => {
       description: "A. Villalonga",
       embedUrl: "https://www.youtube.com/embed/OA9mZg8aiXI",
     },
+    {
+      title: "Aleluya - L. Cohen",
+      description: "Duo Lhav",
+      embedUrl: "https://www.youtube.com/embed/QjVE-DIJa3g?si=8-SdpaPk0ZLRF5qk",
+    },
   ];
 
   return (
