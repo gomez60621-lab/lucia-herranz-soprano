@@ -5,9 +5,9 @@ import { Music4, Instagram } from "lucide-react";
 const Repertorio = () => {
   const videos = [
     {
-      title: "La vie en rose",
-      description: "Duo Lhav",
-      embedUrl: "https://www.youtube.com/embed/tAkMAlqZqPk?si=z0vKTmgsiY6ywgrC",
+      title: "El día que me quieras",
+      description: "Interpretación en concierto",
+      embedUrl: "https://www.youtube.com/embed/54bjJI7Gkco",
     },
     {
       title: "Aria Pensar en él",
@@ -18,11 +18,6 @@ const Repertorio = () => {
       title: "El teu somris",
       description: "A. Villalonga",
       embedUrl: "https://www.youtube.com/embed/OA9mZg8aiXI",
-    },
-    {
-      title: "Aleluya - L. Cohen",
-      description: "Duo Lhav",
-      embedUrl: "https://www.youtube.com/embed/QjVE-DIJa3g?si=8-SdpaPk0ZLRF5qk",
     },
   ];
 
