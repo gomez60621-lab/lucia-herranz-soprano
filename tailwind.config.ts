@@ -15,7 +15,8 @@ export default {
     extend: {
       fontFamily: {
         'playfair': ['Playfair Display', 'serif'],
-        'cormorant': ['Cormorant', 'serif'],
+        'cormorant': ['Cormorant Garamond', 'serif'],
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,8 +52,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        gold: "hsl(var(--gold))",
-        burgundy: "hsl(var(--burgundy))",
+        'opera-red': "hsl(var(--opera-red))",
+        'opera-black': "hsl(var(--opera-black))",
+        'opera-white': "hsl(var(--opera-white))",
+        'opera-gray': "hsl(var(--opera-gray))",
       },
       backgroundImage: {
         'gradient-elegant': 'var(--gradient-elegant)',
