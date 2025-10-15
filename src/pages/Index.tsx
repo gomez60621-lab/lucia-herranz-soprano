@@ -3,34 +3,29 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import heroImage from "@/assets/hero-soprano.jpg";
 import { Music2, Calendar, Users, Instagram } from "lucide-react";
-import { useEffect, useState } from "react";
 
 const Index = () => {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center pt-32 pb-16 px-6 overflow-hidden">
-        <div className="relative z-10 text-center max-w-4xl mx-auto animate-fade-in mb-12">
-          <p className="font-cormorant text-lg md:text-xl text-muted-foreground mb-2">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/50 to-background" />
+        </div>
+        
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-in">
+          <p className="font-cormorant text-lg md:text-xl text-primary-foreground/80 mb-2">
             Soprano Profesional
           </p>
-          <h1 className="font-playfair text-5xl md:text-7xl font-bold text-foreground mb-2">
+          <h1 className="font-playfair text-5xl md:text-7xl font-bold text-primary-foreground mb-2">
             Lucía Herranz
           </h1>
-          <p className="font-cormorant text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="font-cormorant text-xl md:text-2xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
             Una voz que trasciende en eventos exclusivos, bodas de ensueño y conciertos memorables
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -38,7 +33,7 @@ const Index = () => {
               <Button 
                 size="lg"
                 variant="outline"
-                className="border-2 border-foreground text-foreground hover:bg-foreground hover:text-background font-cormorant text-lg px-8 py-6"
+                className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/20 bg-primary/10 backdrop-blur-sm font-cormorant text-lg px-8 py-6"
               >
                 Ver Repertorio
               </Button>
@@ -47,26 +42,12 @@ const Index = () => {
               <Button 
                 size="lg"
                 variant="outline"
-                className="border-2 border-foreground text-foreground hover:bg-foreground hover:text-background font-cormorant text-lg px-8 py-6"
+                className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/20 bg-primary/10 backdrop-blur-sm font-cormorant text-lg px-8 py-6"
               >
                 Solicitar Información
               </Button>
             </Link>
           </div>
-        </div>
-
-        <div 
-          className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-lg shadow-elegant"
-          style={{ 
-            transform: `translateY(${scrollY * 0.2}px)`,
-            transition: 'transform 0.1s ease-out'
-          }}
-        >
-          <img 
-            src={heroImage} 
-            alt="Lucía Herranz - Soprano" 
-            className="w-full h-auto object-cover"
-          />
         </div>
       </section>
 
