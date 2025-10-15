@@ -1,10 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
-import heroImage from "@/assets/hero-soprano.jpg";
+import heroImage from "@/assets/1760389683892.jpg";
 import { Music2, Calendar, Users, Instagram } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Index = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -34,7 +46,8 @@ const Index = () => {
             <Link to="/contacto">
               <Button 
                 size="lg"
-                className="bg-foreground text-background hover:bg-foreground/90 font-cormorant text-lg px-8 py-6"
+                variant="outline"
+                className="border-2 border-foreground text-foreground hover:bg-foreground hover:text-background font-cormorant text-lg px-8 py-6"
               >
                 Solicitar Información
               </Button>
@@ -43,23 +56,16 @@ const Index = () => {
         </div>
 
         <div 
-          className="relative w-full max-w-md mx-auto overflow-hidden rounded-lg shadow-elegant transition-transform duration-700 hover:scale-105"
+          className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-lg shadow-elegant"
           style={{ 
-            transform: `translateY(${typeof window !== 'undefined' ? window.scrollY * 0.3 : 0}px)`,
+            transform: `translateY(${scrollY * 0.2}px)`,
+            transition: 'transform 0.1s ease-out'
           }}
         >
           <img 
             src={heroImage} 
             alt="Lucía Herranz - Soprano" 
             className="w-full h-auto object-cover"
-            onLoad={(e) => {
-              window.addEventListener('scroll', () => {
-                const target = e.currentTarget.parentElement;
-                if (target) {
-                  target.style.transform = `translateY(${window.scrollY * 0.3}px)`;
-                }
-              });
-            }}
           />
         </div>
       </section>
