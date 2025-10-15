@@ -74,17 +74,6 @@ const Biografia = () => {
             </div>
           </div>
 
-          {/* Quote Section */}
-          <div className="mb-16 p-8 md:p-12 bg-gradient-elegant rounded-lg shadow-elegant animate-fade-in">
-            <Quote className="w-12 h-12 text-primary-foreground/40 mb-4" />
-            <blockquote className="font-cormorant text-2xl md:text-3xl text-primary-foreground italic leading-relaxed">
-              "La música es el lenguaje del alma, y cada nota que canto es un puente entre mi corazón y el de quienes me escuchan"
-            </blockquote>
-            <p className="font-cormorant text-xl text-primary-foreground/80 mt-6 text-right">
-              — Lucía Herranz
-            </p>
-          </div>
-
           {/* Press Section */}
           <div className="animate-fade-in">
             <h2 className="font-playfair text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
