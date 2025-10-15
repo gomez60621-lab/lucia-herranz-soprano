@@ -108,7 +108,7 @@ const Biografia = () => {
       <section className="py-16 px-6 bg-gradient-subtle">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-playfair text-3xl md:text-4xl font-bold text-foreground mb-6">
-            ¿Quieres trabajar conmigo?
+            Solicita Información
           </h2>
           <p className="font-cormorant text-xl text-muted-foreground mb-8">
             Contacta para consultar disponibilidad y hacer de tu evento algo inolvidable
