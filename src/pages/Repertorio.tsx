@@ -5,9 +5,9 @@ import { Music4, Instagram } from "lucide-react";
 const Repertorio = () => {
   const videos = [
     {
-      title: "El día que me quieras",
-      description: "Interpretación en concierto",
-      embedUrl: "https://www.youtube.com/embed/54bjJI7Gkco",
+      title: "La vie en rose",
+      description: "Duo Lhav",
+      embedUrl: "https://www.youtube.com/embed/tAkMAlqZqPk?si=z0vKTmgsiY6ywgrC",
     },
     {
       title: "Aria Pensar en él",
