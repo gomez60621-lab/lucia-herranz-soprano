@@ -222,7 +222,8 @@ const Contacto = () => {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-elegant text-primary-foreground hover:opacity-90 font-cormorant text-lg py-6 shadow-elegant"
+                      variant="outline"
+                      className="w-full font-cormorant text-lg py-6 shadow-elegant"
                     >
                       {isSubmitting ? (
                         <>
