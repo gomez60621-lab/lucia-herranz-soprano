@@ -3,7 +3,6 @@ import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Camera, Instagram, ExternalLink, X } from "lucide-react";
 import { useState, useEffect } from "react";
-import { cloudinaryConfig } from "@/config/cloudinary";
 import image1 from "@/assets/1760389385462.jpg";
 import image2 from "@/assets/1760389453082.jpg";
 import image3 from "@/assets/1760389644220.jpg";
@@ -36,34 +35,32 @@ const Galeria = () => {
     },
   ];
 
-  // Fetch images from Cloudinary
+  // Fetch images from Cloudinary via serverless function
   useEffect(() => {
-    const fetchCloudinaryImages = async () => {
+    const fetchGalleryImages = async () => {
       try {
-        const response = await fetch(
-          `https://res.cloudinary.com/${cloudinaryConfig.cloudName}/image/list/${cloudinaryConfig.folder}.json`
-        );
+        const response = await fetch('/.netlify/functions/get-gallery-images');
 
         if (response.ok) {
           const data = await response.json();
-          if (data.resources && data.resources.length > 0) {
-            const formattedPhotos = data.resources.map((resource: any) => ({
-              url: `https://res.cloudinary.com/${cloudinaryConfig.cloudName}/image/upload/w_800,q_auto,f_auto/${resource.public_id}`,
-              title: resource.context?.custom?.caption || "Foto de galería",
-              description: resource.context?.custom?.alt || "",
-              permalink: null
-            }));
-            setCloudinaryPhotos(formattedPhotos);
-          }
+          const formattedPhotos = data.images.map((img: any) => ({
+            url: img.url,
+            title: img.title || "Foto de galería",
+            description: img.description || "",
+            permalink: null
+          }));
+          setCloudinaryPhotos(formattedPhotos);
+        } else {
+          console.error('Failed to fetch gallery images');
         }
       } catch (error) {
-        console.error("Error fetching Cloudinary images:", error);
+        console.error('Error fetching gallery images:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchCloudinaryImages();
+    fetchGalleryImages();
   }, []);
 
   // Combine Cloudinary photos with Instagram posts and fallback
