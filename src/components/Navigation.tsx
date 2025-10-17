@@ -23,10 +23,10 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center group">
-            <img 
-              src={firmaLogo} 
-              alt="Lucía Herranz" 
-              className="h-12 w-auto transition-transform group-hover:scale-105"
+            <img
+              src={firmaLogo}
+              alt="Lucía Herranz"
+              className="h-36 w-auto transition-transform group-hover:scale-105"
             />
           </Link>
           
