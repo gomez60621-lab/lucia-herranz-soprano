@@ -22,12 +22,13 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center group">
+          <Link to="/" className="flex items-center group relative">
             <img
               src={firmaLogo}
               alt="Lucía Herranz"
-              className="h-20 w-auto transition-transform group-hover:scale-105"
+              className="h-20 w-auto transition-all group-hover:scale-105"
             />
+            <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-opera-red transition-all group-hover:w-full"></div>
           </Link>
           
           {/* Desktop Menu */}
@@ -44,7 +45,7 @@ const Navigation = () => {
               >
                 {item.label}
                 {isActive(item.path) && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary" />
+                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-opera-red" />
                 )}
               </Link>
             ))}
@@ -70,8 +71,8 @@ const Navigation = () => {
                     onClick={() => setOpen(false)}
                     className={`font-cormorant text-xl transition-colors py-2 ${
                       isActive(item.path)
-                        ? "text-primary font-medium border-l-2 border-primary pl-4"
-                        : "text-foreground hover:text-primary hover:pl-4 hover:border-l-2 hover:border-primary/50"
+                        ? "text-primary font-medium border-l-2 border-opera-red pl-4"
+                        : "text-foreground hover:text-primary hover:pl-4 hover:border-l-2 hover:border-opera-red/50"
                     }`}
                   >
                     {item.label}
