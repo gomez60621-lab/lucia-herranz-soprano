@@ -26,7 +26,7 @@ const Navigation = () => {
             <img
               src={firmaLogo}
               alt="Lucía Herranz"
-              className="h-36 w-auto transition-transform group-hover:scale-105"
+              className="h-20 w-auto transition-transform group-hover:scale-105"
             />
           </Link>
           
