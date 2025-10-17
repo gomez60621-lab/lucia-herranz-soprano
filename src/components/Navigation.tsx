@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { Music, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import firmaLogo from "@/assets/Firma.png";
 
 const Navigation = () => {
   const location = useLocation();
@@ -21,11 +22,12 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 group">
-            <Music className="w-5 h-5 text-primary transition-transform group-hover:scale-110" />
-            <span className="font-playfair font-semibold text-lg text-foreground">
-              Lucía Herranz
-            </span>
+          <Link to="/" className="flex items-center group">
+            <img 
+              src={firmaLogo} 
+              alt="Lucía Herranz" 
+              className="h-12 w-auto transition-transform group-hover:scale-105"
+            />
           </Link>
           
           {/* Desktop Menu */}
