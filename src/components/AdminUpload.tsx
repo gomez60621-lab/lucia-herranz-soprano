@@ -84,6 +84,10 @@ const AdminUpload: React.FC = () => {
     formData.append('upload_preset', cloudinaryConfig.uploadPreset);
     formData.append('folder', cloudinaryConfig.folder);
     formData.append('api_key', cloudinaryConfig.apiKey);
+    // Add tag to identify gallery images
+    formData.append('tags', 'lucia-gallery');
+    // Add context for title
+    formData.append('context', `title=${file.name.replace(/\.[^/.]+$/, '')}`);
 
     const response = await fetch(CLOUDINARY_UPLOAD_URL, {
       method: 'POST',
@@ -205,7 +209,10 @@ const AdminUpload: React.FC = () => {
               ))}
             </div>
             <p className="success-message">
-              Las imágenes aparecerán en la galería inmediatamente.
+              ✓ ¡Listo! Las imágenes aparecerán en la galería inmediatamente.
+            </p>
+            <p className="info-message" style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#666' }}>
+              Ve a la página de Galería para ver tus imágenes.
             </p>
           </div>
         )}

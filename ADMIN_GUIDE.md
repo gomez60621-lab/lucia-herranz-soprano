@@ -27,10 +27,12 @@
 
 ## ¿Qué Pasa Después de Subir las Fotos?
 
-- Las imágenes aparecen en la galería **inmediatamente**
-- No hay esperas, no hay que reconstruir nada, no se necesita despliegue
-- Las imágenes se optimizan automáticamente para visualización web
-- Todas las imágenes se almacenan de forma segura en la nube
+1. **Las imágenes se suben a Cloudinary** (almacenamiento en la nube)
+2. **Aparecen en la galería INMEDIATAMENTE** - ¡Automático!
+3. **No hay que esperar** - Puedes verlas en la página de Galería al instante
+4. **No necesitas hacer nada más** - El sistema las añade automáticamente
+
+**¡Así de fácil!** Sube fotos y aparecen solas en la galería.
 
 ## Formatos de Imagen Soportados
 
