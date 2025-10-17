@@ -9,6 +9,7 @@ import Biografia from "./pages/Biografia";
 import Galeria from "./pages/Galeria";
 import Contacto from "./pages/Contacto";
 import NotFound from "./pages/NotFound";
+import AdminUpload from "./components/AdminUpload";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/biografia" element={<Biografia />} />
           <Route path="/galeria" element={<Galeria />} />
           <Route path="/contacto" element={<Contacto />} />
+          <Route path="/admin" element={<AdminUpload />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -2,7 +2,8 @@ import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Camera, Instagram, ExternalLink, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { cloudinaryConfig } from "@/config/cloudinary";
 import image1 from "@/assets/1760389385462.jpg";
 import image2 from "@/assets/1760389453082.jpg";
 import image3 from "@/assets/1760389644220.jpg";
@@ -10,7 +11,10 @@ import instagramData from "@/data/instagram-posts.json";
 
 const Galeria = () => {
   const [selectedImage, setSelectedImage] = useState<{ url: string; title: string; description: string } | null>(null);
-  // Fallback photos if Instagram posts aren't loaded yet
+  const [cloudinaryPhotos, setCloudinaryPhotos] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fallback photos if no images are loaded
   const fallbackPhotos = [
     {
       url: image1,
@@ -32,8 +36,40 @@ const Galeria = () => {
     },
   ];
 
-  // Use Instagram posts if available, otherwise use fallback
-  const photos = instagramData.posts && instagramData.posts.length > 0
+  // Fetch images from Cloudinary
+  useEffect(() => {
+    const fetchCloudinaryImages = async () => {
+      try {
+        const response = await fetch(
+          `https://res.cloudinary.com/${cloudinaryConfig.cloudName}/image/list/${cloudinaryConfig.folder}.json`
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.resources && data.resources.length > 0) {
+            const formattedPhotos = data.resources.map((resource: any) => ({
+              url: `https://res.cloudinary.com/${cloudinaryConfig.cloudName}/image/upload/w_800,q_auto,f_auto/${resource.public_id}`,
+              title: resource.context?.custom?.caption || "Foto de galería",
+              description: resource.context?.custom?.alt || "",
+              permalink: null
+            }));
+            setCloudinaryPhotos(formattedPhotos);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching Cloudinary images:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCloudinaryImages();
+  }, []);
+
+  // Combine Cloudinary photos with Instagram posts and fallback
+  const photos = cloudinaryPhotos.length > 0
+    ? cloudinaryPhotos
+    : instagramData.posts && instagramData.posts.length > 0
     ? instagramData.posts
     : fallbackPhotos;
 
