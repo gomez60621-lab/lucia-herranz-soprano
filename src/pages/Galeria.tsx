@@ -1,12 +1,15 @@
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
-import { Camera, Instagram, ExternalLink } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Camera, Instagram, ExternalLink, X } from "lucide-react";
+import { useState } from "react";
 import image1 from "@/assets/1760389385462.jpg";
 import image2 from "@/assets/1760389453082.jpg";
 import image3 from "@/assets/1760389644220.jpg";
 import instagramData from "@/data/instagram-posts.json";
 
 const Galeria = () => {
+  const [selectedImage, setSelectedImage] = useState<{ url: string; title: string; description: string } | null>(null);
   // Fallback photos if Instagram posts aren't loaded yet
   const fallbackPhotos = [
     {
@@ -89,7 +92,10 @@ const Galeria = () => {
                     </div>
                   </a>
                 ) : (
-                  <div className="aspect-[4/3] relative overflow-hidden bg-muted">
+                  <div 
+                    className="aspect-[4/3] relative overflow-hidden bg-muted cursor-pointer"
+                    onClick={() => setSelectedImage(photo)}
+                  >
                     <img
                       src={photo.url}
                       alt={photo.title}
@@ -112,6 +118,36 @@ const Galeria = () => {
           </div>
         </div>
       </div>
+
+      {/* Lightbox Dialog */}
+      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+        <DialogContent className="max-w-5xl w-full p-0 border-0 bg-transparent">
+          <button
+            onClick={() => setSelectedImage(null)}
+            className="absolute -top-12 right-0 z-50 p-2 rounded-full bg-opera-red text-opera-white hover:bg-opera-red/90 transition-colors"
+            aria-label="Cerrar"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          {selectedImage && (
+            <div className="relative w-full animate-fade-in">
+              <img
+                src={selectedImage.url}
+                alt={selectedImage.title}
+                className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary/90 to-transparent p-6 rounded-b-lg">
+                <h3 className="font-playfair text-2xl font-semibold text-primary-foreground mb-2">
+                  {selectedImage.title}
+                </h3>
+                <p className="font-cormorant text-lg text-primary-foreground/90">
+                  {selectedImage.description}
+                </p>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-border bg-background">
