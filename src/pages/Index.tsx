@@ -38,7 +38,7 @@ const Index = () => {
               <Button 
                 size="lg"
                 variant="outline"
-                className="border-2 border-foreground text-foreground font-cormorant text-lg px-8 py-6"
+                className="font-cormorant text-lg px-8 py-6"
               >
                 Ver Repertorio
               </Button>
@@ -47,7 +47,7 @@ const Index = () => {
               <Button 
                 size="lg"
                 variant="outline"
-                className="border-2 border-foreground text-foreground font-cormorant text-lg px-8 py-6"
+                className="font-cormorant text-lg px-8 py-6"
               >
                 Solicitar Información
               </Button>
@@ -130,7 +130,7 @@ const Index = () => {
             <Button 
               size="lg"
               variant="outline"
-              className="border-2 border-primary-foreground text-primary-foreground font-cormorant text-lg px-8 py-6 shadow-elegant"
+              className="font-cormorant text-lg px-8 py-6 shadow-elegant"
             >
               Solicitar Información
             </Button>
