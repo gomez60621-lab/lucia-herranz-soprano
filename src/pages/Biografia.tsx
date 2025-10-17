@@ -116,7 +116,8 @@ const Biografia = () => {
           <Link to="/contacto">
             <Button 
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 font-cormorant text-lg px-8 py-6 shadow-elegant"
+              variant="outline"
+              className="font-cormorant text-lg px-8 py-6 shadow-elegant"
             >
               Solicitar Información
             </Button>
