@@ -83,10 +83,10 @@ const Index = () => {
                 <Users className="w-8 h-8 text-primary-foreground" />
               </div>
               <h3 className="font-playfair text-2xl font-semibold text-foreground mb-4">
-                Bodas
+                Ceremonias
               </h3>
               <p className="font-cormorant text-lg text-muted-foreground">
-                Momentos únicos con música celestial para el día más especial de tu vida
+                Momentos únicos con música celestial para ocasiones especiales
               </p>
             </div>
 
