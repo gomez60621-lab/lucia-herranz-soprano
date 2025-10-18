@@ -1,30 +1,40 @@
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Music4, Instagram } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Video {
+  id: string;
+  title: string;
+  description: string;
+  embed_url: string;
+  order_index: number;
+}
 
 const Repertorio = () => {
-  const videos = [
-    {
-      title: "La vie en rose",
-      description: "Duo Lhav",
-      embedUrl: "https://www.youtube.com/embed/tAkMAlqZqPk?si=z0vKTmgsiY6ywgrC",
-    },
-    {
-      title: "Aria Pensar en él",
-      description: "Marina de E. Arrieta",
-      embedUrl: "https://www.youtube.com/embed/jSmC-JWLWh8",
-    },
-    {
-      title: "El teu somris",
-      description: "A. Villalonga",
-      embedUrl: "https://www.youtube.com/embed/OA9mZg8aiXI",
-    },
-    {
-      title: "Aleluya - L. Cohen",
-      description: "Duo Lhav",
-      embedUrl: "https://www.youtube.com/embed/QjVE-DIJa3g?si=8-SdpaPk0ZLRF5qk",
-    },
-  ];
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadVideos();
+  }, []);
+
+  const loadVideos = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("videos")
+        .select("*")
+        .order("order_index", { ascending: true });
+
+      if (error) throw error;
+      setVideos(data || []);
+    } catch (error) {
+      console.error("Error loading videos:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -56,7 +66,7 @@ const Repertorio = () => {
                 <div className="aspect-video bg-muted relative overflow-hidden">
                   <iframe
                     className="absolute inset-0 w-full h-full"
-                    src={video.embedUrl}
+                    src={video.embed_url}
                     title={video.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
