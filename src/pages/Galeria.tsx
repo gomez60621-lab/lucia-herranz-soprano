@@ -1,33 +1,42 @@
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Camera, Instagram, X } from "lucide-react";
-import { useState } from "react";
-import image1 from "@/assets/1760389385462.jpg";
-import image2 from "@/assets/1760389453082.jpg";
-import image3 from "@/assets/1760389644220.jpg";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Photo {
+  id: string;
+  title: string;
+  description: string;
+  image_url: string;
+  order_index: number;
+}
 
 const Galeria = () => {
   const [selectedImage, setSelectedImage] = useState<{ url: string; title: string; description: string } | null>(null);
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Static gallery photos
-  const photos = [
-    {
-      url: image1,
-      title: "Concierto lírico en auditorio Jesus, Ibiza",
-      description: "Temporada 2024"
-    },
-    {
-      url: image2,
-      title: "Noches en 1742, Ibiza",
-      description: "Temporada 2023"
-    },
-    {
-      url: image3,
-      title: "Fira de la sal San Jordi, Ibiza",
-      description: "Temporada 2022"
-    },
-  ];
+  useEffect(() => {
+    loadPhotos();
+  }, []);
+
+  const loadPhotos = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("photos")
+        .select("*")
+        .order("order_index", { ascending: true });
+
+      if (error) throw error;
+      setPhotos(data || []);
+    } catch (error) {
+      console.error("Error loading photos:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -50,17 +59,17 @@ const Galeria = () => {
 
           {/* Photo Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {photos.map((photo, index) => (
+            {photos.map((photo) => (
               <Card
-                key={index}
+                key={photo.id}
                 className="overflow-hidden shadow-soft hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 group"
               >
                 <div
                   className="aspect-[4/3] relative overflow-hidden bg-muted cursor-pointer"
-                  onClick={() => setSelectedImage(photo)}
+                  onClick={() => setSelectedImage({ url: photo.image_url, title: photo.title, description: photo.description })}
                 >
                   <img
-                    src={photo.url}
+                    src={photo.image_url}
                     alt={photo.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />

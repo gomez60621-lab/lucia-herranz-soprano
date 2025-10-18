@@ -44,6 +44,36 @@ export type Database = {
         }
         Relationships: []
       }
+      photos: {
+        Row: {
+          id: string
+          title: string
+          description: string
+          image_url: string
+          created_at: string
+          updated_at: string
+          order_index: number
+        }
+        Insert: {
+          id?: string
+          title: string
+          description: string
+          image_url: string
+          created_at?: string
+          updated_at?: string
+          order_index?: number
+        }
+        Update: {
+          id?: string
+          title?: string
+          description?: string
+          image_url?: string
+          created_at?: string
+          updated_at?: string
+          order_index?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

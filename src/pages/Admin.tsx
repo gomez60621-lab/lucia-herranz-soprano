@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Trash2, Plus, LogOut, Youtube } from "lucide-react";
+import { Trash2, Plus, LogOut, Youtube, Camera, Upload } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -23,10 +24,19 @@ interface Video {
   order_index: number;
 }
 
+interface Photo {
+  id: string;
+  title: string;
+  description: string;
+  image_url: string;
+  order_index: number;
+}
+
 const Admin = () => {
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [videos, setVideos] = useState<Video[]>([]);
+  const [photos, setPhotos] = useState<Photo[]>([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newVideo, setNewVideo] = useState({
@@ -34,7 +44,14 @@ const Admin = () => {
     description: "",
     embed_url: "",
   });
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [newPhoto, setNewPhoto] = useState({
+    title: "",
+    description: "",
+  });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [isVideoDialogOpen, setIsVideoDialogOpen] = useState(false);
+  const [isPhotoDialogOpen, setIsPhotoDialogOpen] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -57,6 +74,7 @@ const Admin = () => {
   useEffect(() => {
     if (session) {
       loadVideos();
+      loadPhotos();
     }
   }, [session]);
 
@@ -69,6 +87,24 @@ const Admin = () => {
 
       if (error) throw error;
       setVideos(data || []);
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const loadPhotos = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("photos")
+        .select("*")
+        .order("order_index", { ascending: true });
+
+      if (error) throw error;
+      setPhotos(data || []);
     } catch (error: any) {
       toast({
         title: "Error",
@@ -139,7 +175,7 @@ const Admin = () => {
       });
 
       setNewVideo({ title: "", description: "", embed_url: "" });
-      setIsDialogOpen(false);
+      setIsVideoDialogOpen(false);
       loadVideos();
     } catch (error: any) {
       toast({
@@ -164,6 +200,104 @@ const Admin = () => {
       });
 
       loadVideos();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleAddPhoto = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!selectedFile) {
+      toast({
+        title: "Error",
+        description: "Por favor selecciona una imagen",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setUploading(true);
+    try {
+      // Subir la imagen a Supabase Storage
+      const fileExt = selectedFile.name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('gallery')
+        .upload(filePath, selectedFile);
+
+      if (uploadError) throw uploadError;
+
+      // Obtener la URL pública
+      const { data: { publicUrl } } = supabase.storage
+        .from('gallery')
+        .getPublicUrl(filePath);
+
+      // Insertar en la base de datos
+      const maxOrder = photos.length > 0 ? Math.max(...photos.map(p => p.order_index)) : -1;
+
+      const { error: dbError } = await supabase.from("photos").insert({
+        title: newPhoto.title,
+        description: newPhoto.description,
+        image_url: publicUrl,
+        order_index: maxOrder + 1,
+      });
+
+      if (dbError) throw dbError;
+
+      toast({
+        title: "Éxito",
+        description: "Foto añadida correctamente",
+      });
+
+      setNewPhoto({ title: "", description: "" });
+      setSelectedFile(null);
+      setIsPhotoDialogOpen(false);
+      loadPhotos();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleDeletePhoto = async (id: string, imageUrl: string) => {
+    if (!confirm("¿Estás seguro de que quieres eliminar esta foto?")) return;
+
+    try {
+      // Extraer el nombre del archivo de la URL
+      const fileName = imageUrl.split('/').pop();
+
+      // Eliminar de storage
+      if (fileName) {
+        const { error: storageError } = await supabase.storage
+          .from('gallery')
+          .remove([fileName]);
+
+        if (storageError) console.error("Error deleting from storage:", storageError);
+      }
+
+      // Eliminar de la base de datos
+      const { error } = await supabase.from("photos").delete().eq("id", id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Éxito",
+        description: "Foto eliminada correctamente",
+      });
+
+      loadPhotos();
     } catch (error: any) {
       toast({
         title: "Error",
@@ -232,7 +366,7 @@ const Admin = () => {
             <h1 className="font-playfair text-4xl font-bold text-foreground mb-2">
               Panel de Administración
             </h1>
-            <p className="text-muted-foreground">Gestiona los videos del repertorio</p>
+            <p className="text-muted-foreground">Gestiona el contenido de tu sitio web</p>
           </div>
           <Button variant="outline" onClick={handleLogout}>
             <LogOut className="w-4 h-4 mr-2" />
@@ -240,8 +374,23 @@ const Admin = () => {
           </Button>
         </div>
 
-        {/* Add Video Button */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        {/* Tabs */}
+        <Tabs defaultValue="videos" className="w-full">
+          <TabsList className="grid w-full max-w-md grid-cols-2 mb-8">
+            <TabsTrigger value="videos">
+              <Youtube className="w-4 h-4 mr-2" />
+              Videos
+            </TabsTrigger>
+            <TabsTrigger value="gallery">
+              <Camera className="w-4 h-4 mr-2" />
+              Galería
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Videos Tab */}
+          <TabsContent value="videos">
+            {/* Add Video Button */}
+            <Dialog open={isVideoDialogOpen} onOpenChange={setIsVideoDialogOpen}>
           <DialogTrigger asChild>
             <Button className="mb-6">
               <Plus className="w-4 h-4 mr-2" />
@@ -331,17 +480,133 @@ const Admin = () => {
           ))}
         </div>
 
-        {videos.length === 0 && (
-          <div className="text-center py-12">
-            <Youtube className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-muted-foreground text-lg">
-              No hay videos añadidos todavía
-            </p>
-            <p className="text-muted-foreground text-sm mt-2">
-              Haz clic en "Añadir Video" para empezar
-            </p>
-          </div>
-        )}
+            {videos.length === 0 && (
+              <div className="text-center py-12">
+                <Youtube className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <p className="text-muted-foreground text-lg">
+                  No hay videos añadidos todavía
+                </p>
+                <p className="text-muted-foreground text-sm mt-2">
+                  Haz clic en "Añadir Video" para empezar
+                </p>
+              </div>
+            )}
+          </TabsContent>
+
+          {/* Gallery Tab */}
+          <TabsContent value="gallery">
+            {/* Add Photo Button */}
+            <Dialog open={isPhotoDialogOpen} onOpenChange={setIsPhotoDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="mb-6">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Añadir Foto
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Añadir Nueva Foto</DialogTitle>
+                  <DialogDescription>
+                    Sube una foto para la galería
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleAddPhoto} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="photo-title">Título</Label>
+                    <Input
+                      id="photo-title"
+                      placeholder="Concierto en el Teatro Principal"
+                      value={newPhoto.title}
+                      onChange={(e) => setNewPhoto({ ...newPhoto, title: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="photo-description">Descripción</Label>
+                    <Input
+                      id="photo-description"
+                      placeholder="Temporada 2024"
+                      value={newPhoto.description}
+                      onChange={(e) => setNewPhoto({ ...newPhoto, description: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="photo-file">Imagen</Label>
+                    <Input
+                      id="photo-file"
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+                      required
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Formatos aceptados: JPG, PNG, WebP
+                    </p>
+                  </div>
+                  <Button type="submit" className="w-full" disabled={uploading}>
+                    {uploading ? (
+                      <>
+                        <Upload className="w-4 h-4 mr-2 animate-spin" />
+                        Subiendo...
+                      </>
+                    ) : (
+                      <>
+                        <Upload className="w-4 h-4 mr-2" />
+                        Subir Foto
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </DialogContent>
+            </Dialog>
+
+            {/* Photos Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {photos.map((photo) => (
+                <Card key={photo.id} className="overflow-hidden">
+                  <div className="aspect-[4/3] bg-muted relative overflow-hidden">
+                    <img
+                      src={photo.image_url}
+                      alt={photo.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="font-playfair text-xl flex items-start gap-2">
+                      <Camera className="w-5 h-5 mt-1 flex-shrink-0 text-primary" />
+                      <span>{photo.title}</span>
+                    </CardTitle>
+                    <CardDescription>{photo.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      className="w-full"
+                      onClick={() => handleDeletePhoto(photo.id, photo.image_url)}
+                    >
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Eliminar
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {photos.length === 0 && (
+              <div className="text-center py-12">
+                <Camera className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <p className="text-muted-foreground text-lg">
+                  No hay fotos añadidas todavía
+                </p>
+                <p className="text-muted-foreground text-sm mt-2">
+                  Haz clic en "Añadir Foto" para empezar
+                </p>
+              </div>
+            )}
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
