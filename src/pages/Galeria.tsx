@@ -1,74 +1,33 @@
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Camera, Instagram, ExternalLink, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Camera, Instagram, X } from "lucide-react";
+import { useState } from "react";
 import image1 from "@/assets/1760389385462.jpg";
 import image2 from "@/assets/1760389453082.jpg";
 import image3 from "@/assets/1760389644220.jpg";
-import instagramData from "@/data/instagram-posts.json";
 
 const Galeria = () => {
   const [selectedImage, setSelectedImage] = useState<{ url: string; title: string; description: string } | null>(null);
-  const [cloudinaryPhotos, setCloudinaryPhotos] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  // Fallback photos if no images are loaded
-  const fallbackPhotos = [
+  // Static gallery photos
+  const photos = [
     {
       url: image1,
       title: "Concierto lírico en auditorio Jesus, Ibiza",
-      description: "Temporada 2024",
-      permalink: null
+      description: "Temporada 2024"
     },
     {
       url: image2,
       title: "Noches en 1742, Ibiza",
-      description: "Temporada 2023",
-      permalink: null
+      description: "Temporada 2023"
     },
     {
       url: image3,
       title: "Fira de la sal San Jordi, Ibiza",
-      description: "Temporada 2022",
-      permalink: null
+      description: "Temporada 2022"
     },
   ];
-
-  // Fetch images from Cloudinary via serverless function
-  useEffect(() => {
-    const fetchGalleryImages = async () => {
-      try {
-        const response = await fetch('/.netlify/functions/get-gallery-images');
-
-        if (response.ok) {
-          const data = await response.json();
-          const formattedPhotos = data.images.map((img: any) => ({
-            url: img.url,
-            title: img.title || "Foto de galería",
-            description: img.description || "",
-            permalink: null
-          }));
-          setCloudinaryPhotos(formattedPhotos);
-        } else {
-          console.error('Failed to fetch gallery images');
-        }
-      } catch (error) {
-        console.error('Error fetching gallery images:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchGalleryImages();
-  }, []);
-
-  // Combine Cloudinary photos with Instagram posts and fallback
-  const photos = cloudinaryPhotos.length > 0
-    ? cloudinaryPhotos
-    : instagramData.posts && instagramData.posts.length > 0
-    ? instagramData.posts
-    : fallbackPhotos;
 
   return (
     <div className="min-h-screen bg-background">
@@ -96,56 +55,26 @@ const Galeria = () => {
                 key={index}
                 className="overflow-hidden shadow-soft hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 group"
               >
-                {photo.permalink ? (
-                  <a
-                    href={photo.permalink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <div className="aspect-[4/3] relative overflow-hidden bg-muted">
-                      <img
-                        src={photo.url}
-                        alt={photo.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                        <div className="text-primary-foreground">
-                          <div className="flex items-start justify-between gap-2 mb-1">
-                            <h3 className="font-playfair text-xl font-semibold">
-                              {photo.title}
-                            </h3>
-                            <ExternalLink className="w-5 h-5 flex-shrink-0" />
-                          </div>
-                          <p className="font-cormorant text-sm">
-                            {photo.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                ) : (
-                  <div 
-                    className="aspect-[4/3] relative overflow-hidden bg-muted cursor-pointer"
-                    onClick={() => setSelectedImage(photo)}
-                  >
-                    <img
-                      src={photo.url}
-                      alt={photo.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                      <div className="text-primary-foreground">
-                        <h3 className="font-playfair text-xl font-semibold mb-1">
-                          {photo.title}
-                        </h3>
-                        <p className="font-cormorant text-sm">
-                          {photo.description}
-                        </p>
-                      </div>
+                <div
+                  className="aspect-[4/3] relative overflow-hidden bg-muted cursor-pointer"
+                  onClick={() => setSelectedImage(photo)}
+                >
+                  <img
+                    src={photo.url}
+                    alt={photo.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div className="text-primary-foreground">
+                      <h3 className="font-playfair text-xl font-semibold mb-1">
+                        {photo.title}
+                      </h3>
+                      <p className="font-cormorant text-sm">
+                        {photo.description}
+                      </p>
                     </div>
                   </div>
-                )}
+                </div>
               </Card>
             ))}
           </div>
