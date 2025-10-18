@@ -1,27 +1,67 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import { ExternalLink, Quote } from "lucide-react";
-import bioImage from "@/assets/1760389683892.jpg";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Biography {
+  id: string;
+  photo_url: string;
+  biography_text: string;
+}
+
+interface PressLink {
+  id: string;
+  title: string;
+  source: string;
+  url: string;
+  order_index: number;
+}
 
 const Biografia = () => {
-  const articles = [
-    {
-      title: "La soprano ibicenca Lucía Herranz inaugura el Festival de Música de Cámara",
-      source: "Santa Eulària des Riu",
-      url: "https://santaeulariadesriu.com/es/actualidad/noticias/9731-la-soprano-ibicenca-lucia-herranz-inaugura-este-domingo-el-festival-de-musica-de-camara-con-un-recital-de-duetos-y-arias-junto-al-tenor-adria-mas-y-la-pianista-olga-kobekina"
-    },
-    {
-      title: "Lucía Herranz y Adolfo Villalonga ofrecen un concierto gratuito en el claustro del Ayuntamiento de Eivissa",
-      source: "Nou Diari",
-      url: "https://www.noudiari.es/cultura-ibiza/lucia-herranz-y-adolfo-villalonga-ofrecen-un-concierto-gratuito-en-el-claustro-del-ayuntamiento-de-eivissa/"
-    },
-    {
-      title: "Mañana sonar la cantante",
-      source: "Diario de Ibiza",
-      url: "https://www.diariodeibiza.es/sociedad/2025/02/24/manana-sonar-cantante-114609023.html"
+  const [biography, setBiography] = useState<Biography | null>(null);
+  const [pressLinks, setPressLinks] = useState<PressLink[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadBiography();
+    loadPressLinks();
+  }, []);
+
+  const loadBiography = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("biography")
+        .select("*")
+        .limit(1)
+        .single();
+
+      if (error) throw error;
+      setBiography(data);
+    } catch (error) {
+      console.error("Error loading biography:", error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  const loadPressLinks = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("press_links")
+        .select("*")
+        .order("order_index", { ascending: true });
+
+      if (error) throw error;
+      setPressLinks(data || []);
+    } catch (error) {
+      console.error("Error loading press links:", error);
+    }
+  };
+
+  // Divide el texto en párrafos
+  const biographyParagraphs = biography?.biography_text.split('\n\n').filter(p => p.trim()) || [];
 
   return (
     <div className="min-h-screen bg-background">
@@ -45,11 +85,13 @@ const Biografia = () => {
           <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
             {/* Photo */}
             <div className="animate-fade-in">
-              <img 
-                src={bioImage}
-                alt="Lucía Herranz - Soprano" 
-                className="w-full rounded-lg shadow-elegant hover-scale"
-              />
+              {biography?.photo_url && (
+                <img
+                  src={biography.photo_url}
+                  alt="Lucía Herranz - Soprano"
+                  className="w-full rounded-lg shadow-elegant hover-scale"
+                />
+              )}
             </div>
 
             {/* Personal Information */}
@@ -58,49 +100,42 @@ const Biografia = () => {
                 Lucía Herranz
               </h2>
               <div className="font-cormorant text-lg text-muted-foreground space-y-4 leading-relaxed">
-                <p>
-                  Nacida en el Mediterráneo con el telón de fondo y una nota alta en el corazón, Lucía Herranz no canta: embruja. Esta soprano ibicenca ha elevado el arte del canto lírica a nuevas
-                  alturas, llevando su voz desde los escenarios más selectos de la isla hasta los rincones más inesperados de los eventos elegantes. 
-                </p>
-                <p>
-                  Formada con el rigor clásico, pero con un alma libre - como buena isleña -, Lucía combina técnica con una sensibilidad que hace vibrar hasta el último canapé del cóctel. ¿Una gala en un viñedo? ¿Una boda junto a un acantilado? ¿Una cena 
-                  privada bajo las estrellas? Si hay glamour y buen gusto, allí estará Lucía, afinando el ambiente con estilo y una sonrisa que vale más que mil partituras. 
-                </p>
-                <p>
-                  Con un repertorio que va desde la ópera más exigente hasta versiones exquisitas de clásicos modernos, Lucía transforma cada evento en una experiencia sensorial donde la música deja
-                  de oírse... para sentirse.
-                </p>
+                {biographyParagraphs.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
               </div>
             </div>
           </div>
 
           {/* Press Section */}
-          <div className="animate-fade-in">
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
-              Apariciones en Prensa
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {articles.map((article, index) => (
-                <a
-                  key={index}
-                  href={article.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group p-6 bg-card rounded-lg shadow-soft hover:shadow-elegant transition-all"
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <span className="text-sm font-cormorant text-primary font-semibold">
-                      {article.source}
-                    </span>
-                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </div>
-                  <h3 className="font-cormorant text-lg text-foreground leading-snug group-hover:text-primary transition-colors">
-                    {article.title}
-                  </h3>
-                </a>
-              ))}
+          {pressLinks.length > 0 && (
+            <div className="animate-fade-in">
+              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
+                Apariciones en Prensa
+              </h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                {pressLinks.map((article) => (
+                  <a
+                    key={article.id}
+                    href={article.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group p-6 bg-card rounded-lg shadow-soft hover:shadow-elegant transition-all"
+                  >
+                    <div className="flex items-start justify-between mb-4">
+                      <span className="text-sm font-cormorant text-primary font-semibold">
+                        {article.source}
+                      </span>
+                      <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <h3 className="font-cormorant text-lg text-foreground leading-snug group-hover:text-primary transition-colors">
+                      {article.title}
+                    </h3>
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

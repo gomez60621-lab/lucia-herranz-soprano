@@ -74,6 +74,60 @@ export type Database = {
         }
         Relationships: []
       }
+      biography: {
+        Row: {
+          id: string
+          photo_url: string
+          biography_text: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          photo_url: string
+          biography_text: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          photo_url?: string
+          biography_text?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      press_links: {
+        Row: {
+          id: string
+          title: string
+          source: string
+          url: string
+          created_at: string
+          updated_at: string
+          order_index: number
+        }
+        Insert: {
+          id?: string
+          title: string
+          source: string
+          url: string
+          created_at?: string
+          updated_at?: string
+          order_index?: number
+        }
+        Update: {
+          id?: string
+          title?: string
+          source?: string
+          url?: string
+          created_at?: string
+          updated_at?: string
+          order_index?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
