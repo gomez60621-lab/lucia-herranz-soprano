@@ -19,9 +19,15 @@ const RedirectHandler = () => {
 
   useEffect(() => {
     const redirectPath = sessionStorage.getItem('redirectPath');
-    if (redirectPath) {
+    if (redirectPath && redirectPath !== window.location.pathname) {
       sessionStorage.removeItem('redirectPath');
-      navigate(redirectPath, { replace: true });
+      // Use a small timeout to ensure the router is ready
+      setTimeout(() => {
+        navigate(redirectPath, { replace: true });
+      }, 0);
+    } else if (redirectPath === window.location.pathname) {
+      // Already on the correct path, just clean up
+      sessionStorage.removeItem('redirectPath');
     }
   }, [navigate]);
 
