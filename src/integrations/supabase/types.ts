@@ -128,6 +128,60 @@ export type Database = {
         }
         Relationships: []
       }
+      homepage: {
+        Row: {
+          id: string
+          subtitle: string
+          main_title: string
+          description: string
+          hero_image_url: string | null
+          service1_title: string
+          service1_description: string
+          service2_title: string
+          service2_description: string
+          service3_title: string
+          service3_description: string
+          cta_title: string
+          cta_description: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          subtitle?: string
+          main_title?: string
+          description?: string
+          hero_image_url?: string | null
+          service1_title?: string
+          service1_description?: string
+          service2_title?: string
+          service2_description?: string
+          service3_title?: string
+          service3_description?: string
+          cta_title?: string
+          cta_description?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          subtitle?: string
+          main_title?: string
+          description?: string
+          hero_image_url?: string | null
+          service1_title?: string
+          service1_description?: string
+          service2_title?: string
+          service2_description?: string
+          service3_title?: string
+          service3_description?: string
+          cta_title?: string
+          cta_description?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

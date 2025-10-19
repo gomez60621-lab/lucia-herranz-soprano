@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Trash2, Plus, LogOut, Youtube, Camera, Upload, FileText } from "lucide-react";
+import { Trash2, Plus, LogOut, Youtube, Camera, Upload, FileText, Home } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -16,6 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { BiographyAdmin } from "@/components/BiographyAdmin";
+import { HomePageAdmin } from "@/components/HomePageAdmin";
 
 interface Video {
   id: string;
@@ -376,8 +377,12 @@ const Admin = () => {
         </div>
 
         {/* Tabs */}
-        <Tabs defaultValue="videos" className="w-full">
-          <TabsList className="grid w-full max-w-2xl grid-cols-3 mb-8">
+        <Tabs defaultValue="homepage" className="w-full">
+          <TabsList className="grid w-full max-w-3xl grid-cols-4 mb-8">
+            <TabsTrigger value="homepage">
+              <Home className="w-4 h-4 mr-2" />
+              Inicio
+            </TabsTrigger>
             <TabsTrigger value="videos">
               <Youtube className="w-4 h-4 mr-2" />
               Videos
@@ -391,6 +396,11 @@ const Admin = () => {
               Biografía
             </TabsTrigger>
           </TabsList>
+
+          {/* HomePage Tab */}
+          <TabsContent value="homepage">
+            <HomePageAdmin />
+          </TabsContent>
 
           {/* Videos Tab */}
           <TabsContent value="videos">
